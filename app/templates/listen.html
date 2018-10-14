@@ -12,29 +12,24 @@
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
+    <script src="https://unpkg.com/tippy.js@3/dist/tippy.all.min.js"></script>
+
     <!-- <script type="text/javascript" src="http://livejs.com/live.js"></script> -->
     <script type="text/javascript" src="{{url_for('static', filename='script.js')}}"></script>
 
     <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tippy.js/0.3.0/tippy.css">
 </head>
 
 <body>
     <div class="container" style="text-align: center; max-width: 450px !important; ">
         <div class="card" id="main" style="text-align: left;">
-            <h2>{{title}}</h3>
-            <h3>{{artist}}</h4>
+            <h3 class = "header">{{title}}</h3>
+            <h4 class = "header">{{artist}}</h4>
 
             {{ lyrics|safe }}
-
-            <script>
-            
-            $('#main').append(
-                translate("{{lyrics}}", 'de', 'en')
-            );
-
-            </script>
         </div>
-    </div>
     
 
     <!-- Compiled and minified JavaScript -->

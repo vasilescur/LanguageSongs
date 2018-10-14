@@ -1,4 +1,5 @@
-def fudge(string):
+from translate_words import translate
+def fudgeTranslate(string):
  stringlist = string.split('\n')
  newlist = []
 
@@ -6,9 +7,26 @@ def fudge(string):
   line = string.split(" ")
   linelist = []
   for word in line:
-   starting = '<span class="translatable"gi>'
+   starting = '<span class="translatable" data-tippy = "'+translate(word,'de','en')+'" >'
    ending = '</span>'
    linelist.append(starting+word+ending)
+  newlist.append(' '.join(linelist))
+ string = '<br>'.join(newlist)
+ return string
+
+def fudge(string):
+ stringlist = string.split('\n')
+ newlist = []
+ inx = 0
+ for string in stringlist:
+  line = string.split(" ")
+  linelist = []
+  for word in line:
+   
+   starting = '<span class="translatable" translated_yet = "false" id = "'+"a"+str(inx)+'">'
+   ending = '</span>'
+   linelist.append(starting+word+ending)
+   inx +=1
   newlist.append(' '.join(linelist))
  string = '<br>'.join(newlist)
  return string
