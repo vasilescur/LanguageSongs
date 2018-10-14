@@ -1,73 +1,32 @@
 
 #pylint: disable=C0103,C0111,C0304
 from flask import Flask, render_template, jsonify, request
+
+import sqlite3
+
+from get_lyrics import song_lyrics_and_art
+
 # from get_lyrics import song_id
 app = Flask(__name__)
 
 class Song:
-    def __init__(self, title, artist, level, spot_link, language):
+    def __init__(self, title, artist, level, language, albumart):
         self.title = title
         self.artist = artist
         self.level = level
-        self.spot_link = spot_link
         self.language = language
+        self.albumart = albumart
 
-
-# A few song ID's for each level
-known_music_by_level = {
-    '0': [
-
-    ],
-
-    '0+': [
-
-    ],
-
-    '1': [
-
-    ],
-
-    '1+': [
-
-    ],
-
-    '2': [
-
-    ],
-
-    '2+':
-    '3':
-    '3+':
-    '4':
-    '4+':
-    '5':
-}
-
-# TODO: Store known music in a database.
-known_music = []
-
-for level, id_list in known_music_by_level.items():
-    for song_id in id_list:
-
-        #TODO: Get info from API
-        title = "title"
-        artist = "artist"
-        spot_link = ""
-        language = "de_DE"
-
-        known_music.append(Song(
-            song_id,
-            title,
-            artist,
-            level,
-            spot_link,
-            language
-        ))
-
-print(known_music[0].title)
-print(known_music[0].level)
 
 def find_songs(form):
+    conn = None
+
+    try:
+        conn = sqlite3.connect('lyriclehrer.db')
+    except:
+        print('Failed to connect to database.')
+        raise Exception('failed to connect to database')
+
     songsList = []
 
     nativeLanguage = form['nativeLanguage']
@@ -76,21 +35,29 @@ def find_songs(form):
 
     print('Searching for level ' + str(level))
 
-    for song in known_music:
-        print(song.level)
-        print(level.split(','))
+    levels_list_str = '('
+    for lev in level.split(','):
+        levels_list_str += '"' + lev + '", '
+    # Remove the last comma
+    levels_list_str = levels_list_str[:len(levels_list_str)-2] + ')'
 
-        if song.language == songLanguage and song.level in level.split(','):
-            songsList.append(song)
-        else:
-            pass
+    print(levels_list_str)
+
+    #BUG This is vulnerable to SQL injection if someone manually sets the dropdown
+    # value to something malicious. Sue me
+    for row in conn.execute('''
+            SELECT title, artist, level, language 
+            FROM Songs 
+            WHERE language = "''' + songLanguage + '''"
+                AND level in ''' + levels_list_str + '''
+            ;
+        '''):
+        
+        songsList.append(Song(
+            row[0], row[1], row[2], row[3], song_lyrics_and_art(row[0], row[1])[1]
+        ))
 
     return songsList
-
-
-
-if __name__ == '__main__':
-    print(translate_en_to_de('these words are translated'))
 
 
 @app.route('/')
@@ -103,6 +70,13 @@ def findsongs():
     songList = find_songs(request.args)
 
     return render_template('song-results.html', songList=songList)
+
+
+@app.route('/listen', methods = ['GET'])
+def listen():
+    lyrics = song_lyrics_and_art(request.args['title'], request.args['artist'])
+
+    return render_template('listen.html', lyrics=lyrics)
 
 
 if __name__ == '__main__':

@@ -73,7 +73,6 @@ label {
     text-align: center;
 }
 
-#links-col > a > img {
-    margin-top: 18px;
-    margin-left: 35%;
+#links-col > a > icon {
+    margin-top: 22px;
 }
