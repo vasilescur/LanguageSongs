@@ -1,6 +1,6 @@
-# Lyric Lehrer
+# Lyric Learner
 
-Helps people learn languages by generating matches to foreign songs with easy lyrics.
+Helps people learn languages by real-time translating foreign songs with easy lyrics.
 
 ## Usage
 
