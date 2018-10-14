@@ -5,6 +5,8 @@ from flask import Flask, render_template, jsonify, request
 import sqlite3
 
 from get_lyrics import song_lyrics_and_art
+from translate_words import get_translate_entry, translate
+from fudge_lyrics import fudge
 
 # from get_lyrics import song_id
 app = Flask(__name__)
@@ -74,10 +76,21 @@ def findsongs():
 
 @app.route('/listen', methods = ['GET'])
 def listen():
-    lyrics = song_lyrics_and_art(request.args['title'], request.args['artist'])
+    lyrics = fudge(song_lyrics_and_art(request.args['title'], request.args['artist'])[0])
 
-    return render_template('listen.html', lyrics=lyrics)
+    # Split lyrics into something like this:
 
+    # <span class="translatable">This</span> <span class="translatable">is</span> ...
+    # <br/>
+    # ... more words, one word per span
+    
+
+    return render_template(
+        'listen.html',
+        lyrics=lyrics,
+        title=request.args['title'],
+        artist=request.args['artist']
+    )
 
 if __name__ == '__main__':
     app.run()

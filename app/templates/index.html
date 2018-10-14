@@ -12,17 +12,16 @@
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
-    <script type="text/javascript" src="http://livejs.com/live.js"></script>
 
     <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
-    <link rel="stylesheet" src="C:\Users\Chily\Pictures\WelcomeB.jpg">
     
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
 
 <body>
     <div class="container" style="text-align: center; max-width: 450px !important; ">
         <div class="card" id="main" style="text-align: left;">
-            <h5><img class="responsive-img" src="WelcomeB.jpg"></h5>
+            <h5> <img class="responsive-img" src="{{ url_for('static', filename='welcome.jpg') }}"></h5>
 
             <p class="guide">Select your options below...</p>
 
@@ -51,10 +50,16 @@
                         </select>
                         <label>My proficiency is...</label>
                     </div>
-                    <button class="waves-effect waves-light btn grey darken-1" type="submit">Submit</button>
+                    <button class="waves-effect waves-light btn pink darken-4" type="submit">Submit</button>
                 </form>
             </div>
         </div>
+
+        <script>
+        
+        // $('select').formSelect();
+        
+        </script>
     </div>
 
     <!-- Compiled and minified JavaScript -->

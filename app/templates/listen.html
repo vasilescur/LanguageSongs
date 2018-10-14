@@ -16,28 +16,26 @@
     <script type="text/javascript" src="{{url_for('static', filename='script.js')}}"></script>
 
     <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
-
-    <script type="text/javascript" src="{{url_for('static', filename='translate.js')}}"></script>
-    <script type="text/javascript" src="{{url_for('static', filename='languages.js')}}"></script>
 </head>
 
 <body>
     <div class="container" style="text-align: center; max-width: 450px !important; ">
         <div class="card" id="main" style="text-align: left;">
+            <h2>{{title}}</h3>
+            <h3>{{artist}}</h4>
+
+            {{ lyrics|safe }}
+
             <script>
-                languages = getLangs();
-
-
-                //let input = 'English', output = 'Romanian'
-                translate.text({input:'English',output:'Romanian'}, 'house', function(result) {
-                    console.log('asd');
-                    alert(result);
-                });
+            
+            $('#main').append(
+                translate("{{lyrics}}", 'de', 'en')
+            );
 
             </script>
-
         </div>
     </div>
+    
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
