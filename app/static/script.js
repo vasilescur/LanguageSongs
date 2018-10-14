@@ -73,6 +73,7 @@ $(document).ready(function () {
 
         tippy('#a' + i, {
             content: INITIAL_CONTENT,
+            arrow: true,
 
             async onShow(tip) {
                 if (state.isFetching || !state.canFetch) return
