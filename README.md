@@ -23,10 +23,10 @@ We learned a lot about APIs through this project and the interaction between fro
 ## What’s next for LyricLearner
 LyricLearner could be expanded into a paid service that allows free users to view song titles and paid users are given access to the lyrics with in-line translation. A tool that could be paired with LyricLearner in the future is a Spotify playlist creator. The playlist creator would generate songs based on user language proficiency and Spotify user data to suggest songs that the user would enjoy and would be helpful for language learning. Additionally, this platform could be enhanced through a machine learning algorithm that allows users to respond to the song’s helpfulness in their language learning. This algorithm would enhance the difficulty calculator that we created for our program. There is also room for this platform to integrate with online language courses, such as Duolingo, so that they can integrate music into their courses. 
 
-## Contributing
-Jake Derry
-Ryan Ferner
-Radu Vasilescu 
-Lillian Childrey
-Hamza Waheed
+## Contributors
+* Jake Derry
+* Ryan Ferner
+* Radu Vasilescu 
+* Lillian Childrey
+* Hamza Waheed
 
