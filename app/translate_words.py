@@ -1,7 +1,7 @@
 import http.client, uuid, json
 import requests
 
-MICROSOFT_TRANSLATE_SUBSCRIPTION_KEY = '910f03d051814b3a87bc85990bad78b6'
+MICROSOFT_TRANSLATE_SUBSCRIPTION_KEY = 'YOUR_MICROSOFT_TRANSLATE_SUBSCRIPTION_KEY'
 
 
 def sanitize_german(original):
